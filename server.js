@@ -49,13 +49,22 @@ function start() {
                     viewEmp();
                     start();
                     break;
-                
-                // case 'Add employee':
-                //     addEmp();
-                //     break;
-                // case 'Remove employees':
-                //     remove();
-                //     break;
+                case 'Add department':
+                    addDep();
+                    start();
+                    break;
+                case 'Add role':
+                    addRol();
+                    start();
+                    break;
+                case 'Add employee':
+                    addEmp();
+                    start();
+                    break;
+                case 'Update employee role':
+                    updEmp();
+                    start();
+                    break;
                 case 'Exit\n':
                     connection.end();
             };
