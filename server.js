@@ -51,7 +51,6 @@ function start() {
                     break;
                 case 'Add role':
                     addRol();
-                    start();
                     break;
                 case 'Add employee':
                     addEmp();
@@ -115,6 +114,71 @@ function addDep() {
                 function (err, res) {
                     if (err) throw err;
                     console.log("Department successfully added!");
+                    start();
+                }
+            )
+        })
+};
+
+function addRol() {
+    inquirer
+        .prompt([
+            {
+                name: 'title',
+                type: 'input',
+                message: 'What is the title of the role?'
+            },
+            {
+                name: 'salary',
+                type: 'number',
+                message: 'What is the salary for this position?',
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true
+                    };
+                    return false
+                }
+            },
+            {
+                name: 'dept',
+                type: 'list',
+                message: 'To which department does the role belong?',
+                choices: [
+                    {
+                        value: 1,
+                        name: 'Management'
+                    },
+                    {
+                        value: 2,
+                        name: 'Accounting'
+                    },
+                    {
+                        value: 3,
+                        name: 'Marketing'
+                    },
+                    {
+                        value: 4,
+                        name: 'Finance'
+                    },
+                    {
+                        value: 5,
+                        name: 'Engineering'
+                    }
+                ]
+            }
+        ])
+        .then((response) => {
+            const query = "INSERT INTO role SET ?"
+            connection.query(
+                query,
+                {
+                    title: response.title,
+                    salary: response.salary,
+                    department_id: response.dept
+                },
+                function (err, res) {
+                    if (err) throw err;
+                    console.log("Role successfully added!");
                     start();
                 }
             )
