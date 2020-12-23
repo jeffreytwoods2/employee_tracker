@@ -23,20 +23,26 @@ function start() {
             type: 'list',
             message: 'What would you like to do?',
             choices: [
-                "View all employees",
-                "Manage employees",
-                "Remove employees",
+                "View departments",
+                "View roles",
+                "View employees",
+                new inquirer.Separator(),
+                "Add department",
+                "Add role",
+                "Add employee",
+                "Update employee role",
+                new inquirer.Separator(),
                 "Exit\n"
             ]
         })
         .then((answer) => {
             switch (answer.begin) {
-                case 'View all employees':
+                case 'View employees':
                     view();
                     start();
                     break;
-                // case 'Manage employees':
-                //     manage();
+                // case 'Add employee':
+                //     addEmp();
                 //     break;
                 // case 'Remove employees':
                 //     remove();
@@ -55,3 +61,23 @@ function view() {
         console.log(table);
     })
 };
+
+// function addEmp() {
+//     inquirer 
+//         .prompt([
+//             {
+//                 name: 'firstName',
+//                 type: 'input',
+//                 message: 'Please enter first name:'
+//             },
+//             {
+//                 name: 'lastName',
+//                 type: 'input',
+//                 message: 'PLease enter last name:'
+//             },
+//             {
+//                 name: 'role',
+//                 type: 'list',
+//             }
+//         ])
+// }
