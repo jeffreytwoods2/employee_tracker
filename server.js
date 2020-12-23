@@ -55,7 +55,6 @@ function start() {
                     break;
                 case 'Add employee':
                     addEmp();
-                    start();
                     break;
                 case 'Update employee role':
                     updEmp();
@@ -122,22 +121,137 @@ function addDep() {
         })
 };
 
-// function addEmp() {
-//     inquirer 
-//         .prompt([
-//             {
-//                 name: 'firstName',
-//                 type: 'input',
-//                 message: 'Please enter first name:'
-//             },
-//             {
-//                 name: 'lastName',
-//                 type: 'input',
-//                 message: 'PLease enter last name:'
-//             },
-//             {
-//                 name: 'role',
-//                 type: 'list',
-//             }
-//         ])
-// }
+function addEmp() {
+    inquirer 
+        .prompt([
+            {
+                name: 'firstName',
+                type: 'input',
+                message: 'Please enter employee\'s first name:'
+            },
+            {
+                name: 'lastName',
+                type: 'input',
+                message: 'Please enter employee\'s last name:'
+            },
+            {
+                name: 'role',
+                type: 'list',
+                message: 'What is the employee\'s role?',
+                choices: [
+                    {
+                        value: 1, 
+                        name: 'President'
+                    },
+                    {
+                        value: 2,
+                        name: 'Vice President'
+                    },
+                    {
+                        value: 3,
+                        name: 'Executive Secretary'
+                    },
+                    {
+                        value: 4,
+                        name: 'Head Accountant'
+                    },
+                    {
+                        value: 5,
+                        name: 'Junior Accountant'
+                    },
+                    {
+                        value: 6,
+                        name: 'Marketing Manager'
+                    },
+                    {
+                        value: 7,
+                        name: 'Content Specialist'
+                    },
+                    {
+                        value: 8,
+                        name: 'Head of Investments'
+                    },
+                    {
+                        value: 9,
+                        name: 'Financial Analyst'
+                    },
+                    {
+                        value: 10,
+                        name: 'Senior Software Engineer'
+                    },
+                    {
+                        value: 11,
+                        name: 'Full Stack Developer'
+                    }
+                ]
+            },
+            {
+                name: 'manager',
+                type: 'list',
+                message: 'Who is the employee\'s manager?',
+                choices: [
+                    {
+                        value: 1, 
+                        name: 'President'
+                    },
+                    {
+                        value: 2,
+                        name: 'Vice President'
+                    },
+                    {
+                        value: 3,
+                        name: 'Executive Secretary'
+                    },
+                    {
+                        value: 4,
+                        name: 'Head Accountant'
+                    },
+                    {
+                        value: 5,
+                        name: 'Junior Accountant'
+                    },
+                    {
+                        value: 6,
+                        name: 'Marketing Manager'
+                    },
+                    {
+                        value: 7,
+                        name: 'Content Specialist'
+                    },
+                    {
+                        value: 8,
+                        name: 'Head of Investments'
+                    },
+                    {
+                        value: 9,
+                        name: 'Financial Analyst'
+                    },
+                    {
+                        value: 10,
+                        name: 'Senior Software Engineer'
+                    },
+                    {
+                        value: 11,
+                        name: 'Full Stack Developer'
+                    }
+                ]
+            },
+        ])
+        .then((response) => {
+            const query = "INSERT INTO employee SET ?";
+            connection.query(
+                query,
+                {
+                    first_name: response.firstName,
+                    last_name: response.lastName,
+                    role_id: response.role,
+                    manager_id: response.manager
+                },
+                function (err, res) {
+                    if (err) throw err;
+                    console.log('Employee successfully added!')
+                }
+            );
+            start();
+        })
+};
