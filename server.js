@@ -56,8 +56,7 @@ function start() {
                     addEmp();
                     break;
                 case 'Update employee role':
-                    updEmp();
-                    start();
+                    updEmpRol();
                     break;
                 case 'Exit\n':
                     connection.end();
@@ -319,3 +318,145 @@ function addEmp() {
             start();
         })
 };
+
+function updEmpRol() {
+    inquirer
+        .prompt([
+            {
+                name: 'firstName',
+                type: 'input',
+                message: 'What is employee\'s first name?'
+            },
+            {
+                name: 'lastName',
+                type: 'input',
+                message: 'What is employee\'s last name?'
+            },
+            {
+                name: 'role',
+                type: 'list',
+                message: 'What is the employee\'s new role?',
+                choices: [
+                    {
+                        value: 1, 
+                        name: 'President'
+                    },
+                    {
+                        value: 2,
+                        name: 'Vice President'
+                    },
+                    {
+                        value: 3,
+                        name: 'Executive Secretary'
+                    },
+                    {
+                        value: 4,
+                        name: 'Head Accountant'
+                    },
+                    {
+                        value: 5,
+                        name: 'Junior Accountant'
+                    },
+                    {
+                        value: 6,
+                        name: 'Marketing Manager'
+                    },
+                    {
+                        value: 7,
+                        name: 'Content Specialist'
+                    },
+                    {
+                        value: 8,
+                        name: 'Head of Investments'
+                    },
+                    {
+                        value: 9,
+                        name: 'Financial Analyst'
+                    },
+                    {
+                        value: 10,
+                        name: 'Senior Software Engineer'
+                    },
+                    {
+                        value: 11,
+                        name: 'Full Stack Developer'
+                    }
+                ]
+            },
+            {
+                name: 'manager',
+                type: 'list',
+                message: 'Who is the employee\'s new manager?',
+                choices: [
+                    {
+                        value: 1, 
+                        name: 'President'
+                    },
+                    {
+                        value: 2,
+                        name: 'Vice President'
+                    },
+                    {
+                        value: 3,
+                        name: 'Executive Secretary'
+                    },
+                    {
+                        value: 4,
+                        name: 'Head Accountant'
+                    },
+                    {
+                        value: 5,
+                        name: 'Junior Accountant'
+                    },
+                    {
+                        value: 6,
+                        name: 'Marketing Manager'
+                    },
+                    {
+                        value: 7,
+                        name: 'Content Specialist'
+                    },
+                    {
+                        value: 8,
+                        name: 'Head of Investments'
+                    },
+                    {
+                        value: 9,
+                        name: 'Financial Analyst'
+                    },
+                    {
+                        value: 10,
+                        name: 'Senior Software Engineer'
+                    },
+                    {
+                        value: 11,
+                        name: 'Full Stack Developer'
+                    }
+                ]
+            }
+        ])
+        .then((response) => {
+            query = "UPDATE employee SET ? WHERE ? AND ?";
+            connection.query(
+                query,
+                [
+                    {
+                        role_id: response.role,
+                        manager_id: response.manager
+                    },
+                    {
+                        first_name: response.firstName
+                    },
+                    {
+                        last_name: response.lastName
+                    }
+                ],
+                function (err, res) {
+                    if (err) throw err;
+                    console.log("Employee successfully updated!")
+                }
+
+            );
+            start();
+        })
+}
