@@ -18,7 +18,7 @@ Add a new employee, change their role within your organization, and view their r
 ### Screenshots:
 
 A list of all employees within the organization, as seen in the CLI:
-![cap-1](screencaps/cap-1/png)
+![cap-1](screencaps/cap-1.png)
 
 ### Contact Me:
 - jeffreytwoods2@icloud.com
