@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'root',
     password: 'password',
-    database: 'employee_db'
+    database: 'employees_db'
 });
 
 connection.connect(function(err) {
@@ -33,15 +33,23 @@ function start() {
                 case 'View all employees':
                     view();
                     break;
-                case 'Manage employees':
-                    manage();
-                    break;
-                case 'Remove employees':
-                    remove();
-                    break;
+                // case 'Manage employees':
+                //     manage();
+                //     break;
+                // case 'Remove employees':
+                //     remove();
+                //     break;
                 case 'Exit':
                     connection.end();
             };
             start();
         })
-}
+};
+
+function view() {
+    const query = "SELECT * FROM employee";
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.log(res);
+    })
+};
