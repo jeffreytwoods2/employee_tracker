@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const cTable = require('console.table');
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -25,13 +26,14 @@ function start() {
                 "View all employees",
                 "Manage employees",
                 "Remove employees",
-                "Exit"
+                "Exit\n"
             ]
         })
         .then((answer) => {
             switch (answer.begin) {
                 case 'View all employees':
                     view();
+                    start();
                     break;
                 // case 'Manage employees':
                 //     manage();
@@ -39,10 +41,9 @@ function start() {
                 // case 'Remove employees':
                 //     remove();
                 //     break;
-                case 'Exit':
+                case 'Exit\n':
                     connection.end();
             };
-            start();
         })
 };
 
@@ -50,6 +51,7 @@ function view() {
     const query = "SELECT * FROM employee";
     connection.query(query, function (err, res) {
         if (err) throw err;
-        console.log(res);
+        const table = cTable.getTable(res);
+        console.log(table);
     })
 };
