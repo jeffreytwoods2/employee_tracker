@@ -37,10 +37,19 @@ function start() {
         })
         .then((answer) => {
             switch (answer.begin) {
-                case 'View employees':
-                    view();
+                case 'View departments':
+                    viewDep();
                     start();
                     break;
+                case 'View roles':
+                    viewRol();
+                    start();
+                    break;
+                case 'View employees':
+                    viewEmp();
+                    start();
+                    break;
+                
                 // case 'Add employee':
                 //     addEmp();
                 //     break;
@@ -53,7 +62,25 @@ function start() {
         })
 };
 
-function view() {
+function viewDep() {
+    const query = "SELECT * FROM department";
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        const table = cTable.getTable(res);
+        console.log(table);
+    })
+};
+
+function viewRol() {
+    const query = "SELECT * FROM role";
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        const table = cTable.getTable(res);
+        console.log(table);
+    })
+};
+
+function viewEmp() {
     const query = "SELECT * FROM employee";
     connection.query(query, function (err, res) {
         if (err) throw err;
