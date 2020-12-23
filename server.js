@@ -39,19 +39,15 @@ function start() {
             switch (answer.begin) {
                 case 'View departments':
                     viewDep();
-                    start();
                     break;
                 case 'View roles':
                     viewRol();
-                    start();
                     break;
                 case 'View employees':
                     viewEmp();
-                    start();
                     break;
                 case 'Add department':
                     addDep();
-                    start();
                     break;
                 case 'Add role':
                     addRol();
@@ -77,6 +73,7 @@ function viewDep() {
         if (err) throw err;
         const table = cTable.getTable(res);
         console.log(table);
+        start();
     })
 };
 
@@ -86,6 +83,7 @@ function viewRol() {
         if (err) throw err;
         const table = cTable.getTable(res);
         console.log(table);
+        start();
     })
 };
 
@@ -95,7 +93,33 @@ function viewEmp() {
         if (err) throw err;
         const table = cTable.getTable(res);
         console.log(table);
+        start();
     })
+};
+
+function addDep() {
+    inquirer
+        .prompt([
+            {
+                name: 'name',
+                type: 'input',
+                message: 'What is the name of the department?'
+            }
+        ])
+        .then((response) => {
+            const query = "INSERT INTO department SET ?"
+            connection.query(
+                query,
+                {
+                    name: response.name
+                },
+                function (err, res) {
+                    if (err) throw err;
+                    console.log("Department successfully added!");
+                    start();
+                }
+            )
+        })
 };
 
 // function addEmp() {
